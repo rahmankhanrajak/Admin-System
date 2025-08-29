@@ -2,8 +2,11 @@ import { useState } from 'react'
 import './App.css'
 
 function App() {
-  const [selectedVendor, setSelectedVendor] = useState("Raj");
+  const [count, setCount] = useState(0)
 
+  var selectedVendor = "Raj"
+  var selectedVendor1 = "Rahul"
+  const [selectedVendor, setSelectedVendor] = useState("");
 
   const [newTask, setNewTask] = useState("")
   const [tasksList, settasksList] = useState(["Bisleri", "Aqua"])
@@ -40,7 +43,7 @@ function App() {
     if (!newTask.trim()) return
     let tempBrand = [...brandList]
     let task = {
-      vendor: selectedVendor,
+      vendor: "Raj",
       newTask
     }
     tempBrand.push(task)
@@ -218,14 +221,7 @@ function App() {
         </tbody>
       </table>
 
-      <select value={selectedVendor} onChange={(e) => setSelectedVendor(e.target.value)}>
-        <option value="">-- Select Vendor --</option>
-        {vendorsList.map((vendor, i) => (
-          <option key={i} value={vendor.vendorName}>
-            {vendor.vendorName}
-          </option>
-        ))}
-      </select>
+
       <div className='' >
         <input placeholder='Brand Name' value={newTask} onChange={(e) => setNewTask(e.target.value)} />
         {
@@ -234,9 +230,13 @@ function App() {
             : <button className='ButtonInfo' onClick={updateTask} >Update</button>
 
         }
-
-
         {brandList.filter((item) => item.vendor == selectedVendor).map((item, index) =>
+          <div key={index} >{item.newTask}
+            <button className='p-2 bg-gray-100 cursor-pointer' onClick={() => editTask(item, index)} >Edit</button>
+            <button className='p-2 bg-gray-100 cursor-pointer' onClick={() => deleteBrand(index)} >Delete</button>
+          </div>
+        )}
+        {brandList.filter((item) => item.vendor == selectedVendor1).map((item, index) =>
           <div key={index} >{item.newTask}
             <button className='p-2 bg-gray-100 cursor-pointer' onClick={() => editTask(item, index)} >Edit</button>
             <button className='p-2 bg-gray-100 cursor-pointer' onClick={() => deleteBrand(index)} >Delete</button>
@@ -260,14 +260,7 @@ function App() {
 
         }
 
-        {/* {productsList?.map((item, index) =>
-          <div key={index} >{item.selectBrand}{" "} {item.selectqty}
-            <button className='p-2 bg-gray-100 ' onClick={() => editProduct(item, index)} >Edit</button>
-            <button className='p-2 bg-gray-100 ' onClick={() => deleteProduct(index)} >Delete</button>
-          </div>
-        )
-        } */}
-        {productsList?.filter((item) => item.vendor == selectedVendor).map((item, index) =>
+        {productsList?.map((item, index) =>
           <div key={index} >{item.selectBrand}{" "} {item.selectqty}
             <button className='p-2 bg-gray-100 ' onClick={() => editProduct(item, index)} >Edit</button>
             <button className='p-2 bg-gray-100 ' onClick={() => deleteProduct(index)} >Delete</button>
