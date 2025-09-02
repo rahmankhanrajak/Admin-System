@@ -25,9 +25,9 @@ select {
   @apply bg-gray-100 dark:bg-gray-700 font-semibold;
 }
 
-.tablebox tr:nth-child(even) {
+/* .tablebox tr:nth-child(even) {
   @apply bg-gray-50 dark:bg-gray-900;
-}
+} */
 
 /* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;

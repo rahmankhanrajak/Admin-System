@@ -11,7 +11,13 @@ function App() {
 
   const [selectBrand, setselectBrand] = useState("");
   const [selectqty, setselectqty] = useState("");
-  const [productsList, setproductsList] = useState([]);
+  const [productsList, setproductsList] = useState([
+    {
+      selectBrand: "Bisleri",
+      selectqty: "10L",
+      vendor: "Raj",
+    }
+  ]);
   const [formIdproduct, setformIdproduct] = useState(0);
   const [isUpdateProduct, setisUpdateProduct] = useState(false);
 
@@ -182,6 +188,19 @@ function App() {
         >
           Brand
         </button>
+        <button
+          onClick={() => setActiveMenu('product')}
+          style={{
+            background: activeMenu === 'product' ? '#34495e' : 'transparent',
+            color: 'white',
+            padding: '10px',
+            border: 'none',
+            textAlign: 'left',
+            cursor: 'pointer'
+          }}
+        >
+          Products
+        </button>
       </div>
 
       {/* Main Content */}
@@ -282,7 +301,8 @@ function App() {
             ))} */}
 
             {/* Product Form */}
-            <h3>Add Product for Vendor</h3>
+
+            {/* <h3>Add Product for Vendor</h3>
             <select value={selectBrand} onChange={(e) => setselectBrand(e.target.value)}>
               <option value="">-- Select Brand --</option>
               {brandList
@@ -305,14 +325,15 @@ function App() {
               <button className='ButtonInfo' onClick={addProduct}>Add Product</button>
             ) : (
               <button className='ButtonInfo' onClick={updateProduct}>Update Product</button>
-            )}
+            )} */}
 
             {/* Product List */}
-            <h3>Products List</h3>
+            {/* <h3>Products List</h3>
             <div className='tablebox'>
               <table>
                 <thead>
                   <tr>
+                    <th>Vendor</th>
                     <th>Brand</th>
                     <th>Qty</th>
                     <th>Actions</th>
@@ -320,8 +341,81 @@ function App() {
                 </thead>
                 <tbody>
                   {productsList
-                    .filter(item => item.vendor === selectedVendor).map((item, index) => (
+                    .map((item, index) => (
                       <tr key={index}>
+                        <td>{item.vendor}</td>
+                        <td>{item.selectBrand}</td>
+                        <td>{item.selectqty}</td>
+
+                        <td className='flex flex-row gap-2'>
+                          <button className='ButtonInfo' onClick={() => editProduct(item, index)}>Edit</button>
+                          <button className='ButtonInfo' onClick={() => deleteProduct(index)}>Delete</button>
+                        </td>
+
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div> */}
+            {/* {productsList
+              .filter(item => item.vendor === selectedVendor)
+              .map((item, index) => (
+                <div key={index}>
+                  {item.selectBrand} - {item.selectqty}L
+                  <button className='ButtonInfo' onClick={() => editProduct(item, index)}>Edit</button>
+                  <button className='ButtonInfo' onClick={() => deleteProduct(index)}>Delete</button>
+                </div>
+              ))} */}
+          </>
+        )}
+        {activeMenu === 'product' && (
+          <>
+            <select value={selectedVendor} onChange={(e) => setSelectedVendor(e.target.value)}>
+              <option value="">-- Select Vendor --</option>
+              {vendorsList.map((vendor, i) => (
+                <option key={i} value={vendor.vendorName}>{vendor.vendorName}</option>
+              ))}
+            </select>
+            <h3>Add Product for Vendor</h3>
+            <select value={selectBrand} onChange={(e) => setselectBrand(e.target.value)}>
+              <option value="">-- Select Brand --</option>
+              {brandList
+                .filter(item => item.vendor === selectedVendor)
+                .map((item, index) => (
+                  <option key={index} value={item.newTask}>
+                    {item.newTask}
+                  </option>
+                ))}
+            </select>
+
+            <select value={selectqty} onChange={(e) => setselectqty(e.target.value)}>
+              <option value="">-- Select Quantity --</option>
+              <option value="10L">10L</option>
+              <option value="20L">20L</option>
+              <option value="30L">30L</option>
+            </select>
+
+            {!isUpdateProduct ? (
+              <button className='ButtonInfo' onClick={addProduct}>Add Product</button>
+            ) : (
+              <button className='ButtonInfo' onClick={updateProduct}>Update Product</button>
+            )}
+            <h3>Products List</h3>
+            <div className='tablebox'>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Vendor</th>
+                    <th>Brand</th>
+                    <th>Qty</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {productsList
+                    .map((item, index) => (
+                      <tr key={index}>
+                        <td>{item.vendor}</td>
                         <td>{item.selectBrand}</td>
                         <td>{item.selectqty}</td>
 
@@ -335,15 +429,7 @@ function App() {
                 </tbody>
               </table>
             </div>
-            {/* {productsList
-              .filter(item => item.vendor === selectedVendor)
-              .map((item, index) => (
-                <div key={index}>
-                  {item.selectBrand} - {item.selectqty}L
-                  <button className='ButtonInfo' onClick={() => editProduct(item, index)}>Edit</button>
-                  <button className='ButtonInfo' onClick={() => deleteProduct(index)}>Delete</button>
-                </div>
-              ))} */}
+
           </>
         )}
       </div>
