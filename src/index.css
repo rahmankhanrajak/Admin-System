@@ -3,6 +3,11 @@
 .ButtonInfo {
   @apply p-2 bg-gray-300 cursor-pointer;
 }
+
+input,
+select {
+  @apply w-full border px-3 outline-none outline-0 border-[#efefef] dark:text-white text-[#898989] text-sm py-2 h-10 rounded placeholder:dark:text-white placeholder:text-[#898989] dark:bg-gray-800;
+}
 /* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
