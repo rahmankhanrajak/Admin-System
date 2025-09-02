@@ -34,7 +34,8 @@ function App() {
 
   const [brandList, setbrandList] = useState([
     { vendor: "Raj", newTask: "Bisleri" },
-    { vendor: "Raj", newTask: "Aqua" }
+    { vendor: "Raj", newTask: "Aqua" },
+    { vendor: "Rahul", newTask: "Aqua" },
   ]);
 
   // ---------------- Vendor Functions ----------------
@@ -106,12 +107,14 @@ function App() {
 
   const editTask = (item, index) => {
     setformId(index);
+    setSelectedVendor(item.vendor);
     setNewTask(item.newTask);
     setisUpdate(true);
   };
 
   const updateTask = () => {
     const updatedTasks = [...brandList];
+    updatedTasks[formId].vendor = selectedVendor;
     updatedTasks[formId].newTask = newTask;
     setbrandList(updatedTasks);
     setNewTask("");
@@ -135,6 +138,7 @@ function App() {
 
   const editProduct = (item, index) => {
     setformIdproduct(index);
+    setSelectedVendor(item.vendor);
     setselectBrand(item.selectBrand);
     setselectqty(item.selectqty);
     setisUpdateProduct(true);
@@ -268,18 +272,30 @@ function App() {
             }
 
             {/* Brand List */}
-            <h3>Brands</h3>
+            <h3>Brands List </h3>
             <div className='tablebox'>
               <table>
                 <thead>
                   <tr>
+                    <th>Vendor</th>
                     <th>Brand</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {brandList.filter(item => item.vendor === selectedVendor).map((item, index) => (
+                  {/* {brandList.filter(item => item.vendor === selectedVendor).map((item, index) => (
                     <tr key={index}>
+                      <td>{item.newTask}</td>
+
+                      <td className='flex flex-row gap-2'>
+                        <button className='ButtonInfo' onClick={() => editTask(item, index)}>Edit</button>
+                        <button className='ButtonInfo' onClick={() => deleteBrand(index)}>Delete</button>
+                      </td>
+                    </tr>
+                  ))} */}
+                  {brandList.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.vendor}</td>
                       <td>{item.newTask}</td>
 
                       <td className='flex flex-row gap-2'>
@@ -370,13 +386,14 @@ function App() {
         )}
         {activeMenu === 'product' && (
           <>
+            <h3>Add Product for Vendor</h3>
+
             <select value={selectedVendor} onChange={(e) => setSelectedVendor(e.target.value)}>
               <option value="">-- Select Vendor --</option>
               {vendorsList.map((vendor, i) => (
                 <option key={i} value={vendor.vendorName}>{vendor.vendorName}</option>
               ))}
             </select>
-            <h3>Add Product for Vendor</h3>
             <select value={selectBrand} onChange={(e) => setselectBrand(e.target.value)}>
               <option value="">-- Select Brand --</option>
               {brandList
