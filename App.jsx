@@ -194,7 +194,7 @@ function App() {
       }
 
       <h3>Vendors List:</h3>
-      <table>
+      <table  >
         <thead>
           <tr>
             <th>Vendor Name</th>

@@ -155,7 +155,7 @@ function App() {
         flexDirection: 'column',
         gap: '10px'
       }}>
-        <h3>Menu</h3>
+        <h3>WaterCane admin</h3>
         <button
           onClick={() => setActiveMenu('vendor')}
           style={{
@@ -194,34 +194,37 @@ function App() {
             <input placeholder='Enter Vendor Name' value={vendorName} onChange={(e) => setvendorName(e.target.value)} />
             <input placeholder='Enter Address' value={Address} onChange={(e) => setAddress(e.target.value)} />
             {!isvendorUpdate
-              ? <button onClick={addVendor}>Add Vendor</button>
-              : <button onClick={updateVendor}>Update Vendor</button>
+              ? <button className='ButtonInfo' onClick={addVendor}>Add Vendor</button>
+              : <button className='ButtonInfo' onClick={updateVendor}>Update Vendor</button>
             }
 
             <h3>Vendors List</h3>
-            <table border="1" cellPadding="8">
-              <thead>
-                <tr>
-                  <th>Vendor Name</th>
-                  <th>Address</th>
-                  <th>Area</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {vendorsList.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.vendorName}</td>
-                    <td>{item.Address}</td>
-                    <td>{item.Area}</td>
-                    <td>
-                      <button onClick={() => editVendor(item, index)}>Edit</button>
-                      <button onClick={() => deleteVendor(index)}>Delete</button>
-                    </td>
+            <div className='tablebox'>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th>Vendor Name</th>
+                    <th>Address</th>
+                    <th>Area</th>
+                    <th>Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {vendorsList.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.vendorName}</td>
+                      <td>{item.Address}</td>
+                      <td>{item.Area}</td>
+                      <td className='flex flex-row gap-2' >
+                        <button className='ButtonInfo' onClick={() => editVendor(item, index)}>Edit</button>
+                        <button className='ButtonInfo' onClick={() => deleteVendor(index)}>Delete</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </>
         )}
 
@@ -241,19 +244,42 @@ function App() {
             {/* Brand Input */}
             <input placeholder='Brand Name' value={newTask} onChange={(e) => setNewTask(e.target.value)} />
             {!isUpdate
-              ? <button onClick={addTask}>Add Brand</button>
-              : <button onClick={updateTask}>Update Brand</button>
+              ? <button className='ButtonInfo' onClick={addTask}>Add Brand</button>
+              : <button className='ButtonInfo' onClick={updateTask}>Update Brand</button>
             }
 
             {/* Brand List */}
             <h3>Brands</h3>
-            {brandList.filter(item => item.vendor === selectedVendor).map((item, index) => (
+            <div className='tablebox'>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Brand</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {brandList.filter(item => item.vendor === selectedVendor).map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.newTask}</td>
+
+                      <td className='flex flex-row gap-2'>
+                        <button className='ButtonInfo' onClick={() => editTask(item, index)}>Edit</button>
+                        <button className='ButtonInfo' onClick={() => deleteBrand(index)}>Delete</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* {brandList.filter(item => item.vendor === selectedVendor).map((item, index) => (
               <div key={index}>
                 {item.newTask}
-                <button onClick={() => editTask(item, index)}>Edit</button>
-                <button onClick={() => deleteBrand(index)}>Delete</button>
+                <button className='ButtonInfo' onClick={() => editTask(item, index)}>Edit</button>
+                <button className='ButtonInfo' onClick={() => deleteBrand(index)}>Delete</button>
               </div>
-            ))}
+            ))} */}
 
             {/* Product Form */}
             <h3>Add Product for Vendor</h3>
@@ -276,22 +302,48 @@ function App() {
             </select>
 
             {!isUpdateProduct ? (
-              <button onClick={addProduct}>Add Product</button>
+              <button className='ButtonInfo' onClick={addProduct}>Add Product</button>
             ) : (
-              <button onClick={updateProduct}>Update Product</button>
+              <button className='ButtonInfo' onClick={updateProduct}>Update Product</button>
             )}
 
             {/* Product List */}
             <h3>Products List</h3>
-            {productsList
+            <div className='tablebox'>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Brand</th>
+                    <th>Qty</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {productsList
+                    .filter(item => item.vendor === selectedVendor).map((item, index) => (
+                      <tr key={index}>
+                        <td>{item.selectBrand}</td>
+                        <td>{item.selectqty}</td>
+
+                        <td className='flex flex-row gap-2'>
+                          <button className='ButtonInfo' onClick={() => editProduct(item, index)}>Edit</button>
+                          <button className='ButtonInfo' onClick={() => deleteProduct(index)}>Delete</button>
+                        </td>
+
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
+            {/* {productsList
               .filter(item => item.vendor === selectedVendor)
               .map((item, index) => (
                 <div key={index}>
                   {item.selectBrand} - {item.selectqty}L
-                  <button onClick={() => editProduct(item, index)}>Edit</button>
-                  <button onClick={() => deleteProduct(index)}>Delete</button>
+                  <button className='ButtonInfo' onClick={() => editProduct(item, index)}>Edit</button>
+                  <button className='ButtonInfo' onClick={() => deleteProduct(index)}>Delete</button>
                 </div>
-              ))}
+              ))} */}
           </>
         )}
       </div>
