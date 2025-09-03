@@ -1,7 +1,15 @@
 import { useState } from 'react';
 import './index.css';
+import { useDispatch, useSelector } from "react-redux";
 
 function App() {
+  const getSectionInformation = useSelector((state) => state.section.value);
+  const dispatch = useDispatch();
+
+
+  // whle writing firing
+  // dispatch(populate_Attendance(response.data));
+
   const [activeMenu, setActiveMenu] = useState('vendor');
   const [selectedVendor, setSelectedVendor] = useState("Raj");
 
@@ -270,7 +278,7 @@ function App() {
               ? <button className='ButtonInfo' onClick={addTask}>Add Brand</button>
               : <button className='ButtonInfo' onClick={updateTask}>Update Brand</button>
             }
-
+            b
             {/* Brand List */}
             <h3>Brands List </h3>
             <div className='tablebox'>
